@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "askhat.sso.v1;ssov1";
+
+service Auth {
+  // Registers a new user;
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+
+  // Logins a user;
+  rpc Login (LoginRequest) returns (LoginResponse);
+
+  // Check if a user is admin;
+  rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+};
+
+message RegisterRequest {
+  // Email of the user to register;
+  string email = 1;
+
+  // Password of the user to register;
+  string password = 2;
+}
+
+message RegisterResponse {
+  // User ID of the registered user;
+  int64 user_id = 1;
+}
+
+message LoginRequest {
+  // Email of the user to register;
+  string email = 1;
+
+  // Password of the user to register;
+  string password = 2;
+
+  // ID of the app to login;
+  int64 app_id = 3;
+}
+
+message LoginResponse {
+  // Auth token of the logged user;
+  string token = 1;
+}
+
+message IsAdminRequest {
+  // ID of the user to check;
+  int64 user_id = 1;
+}
+
+message IsAdminResponse {
+  // Indicates whether user is admin or not;
+  bool is_admin = 1;
+}
